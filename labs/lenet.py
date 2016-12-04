@@ -18,7 +18,6 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow.contrib.layers import flatten
 
-
 # NOTE: Feel free to change these.
 EPOCHS = 10
 BATCH_SIZE = 64
@@ -31,7 +30,7 @@ n_classes = 10
 layer_width = {
     'layer_1': 6,
     'layer_2': 16,
-    'flattened': 5*5*16,
+    'flattened': 5 * 5 * 16,
     'fc1': 120,
     'fc2': n_classes
 }
@@ -52,6 +51,7 @@ biases = {
     'fc1': tf.Variable(tf.zeros(layer_width['fc1'])),
     'fc2': tf.Variable(tf.zeros(n_classes))
 }
+
 
 def conv2d(x, W, b, strides=1, padding='VALID'):
     """
@@ -105,6 +105,7 @@ def maxpool2d(x, k=2, padding='SAME'):
     # https://www.tensorflow.org/api_docs/python/nn.html#max_pool
     return tf.nn.max_pool(x, ksize=[1, k, k, 1], strides=[1, k, k, 1], padding=padding)
 
+
 # LeNet architecture:
 # INPUT -> CONV -> ACT -> POOL -> CONV -> ACT -> POOL -> FLATTEN -> FC -> ACT -> FC
 #
@@ -134,7 +135,7 @@ def LeNet(x):
 
     # Fully connected layer
     fc1 = tf.add(tf.matmul(flattened, weights['fc1']), biases['fc1'])
-    fc1 = tf.nn.tanh(fc1) # activation
+    fc1 = tf.nn.tanh(fc1)  # activation
 
     # Output Layer - class prediction - 512 to 10
     fc2 = tf.add(tf.matmul(fc1, weights['fc2']), biases['fc2'])
@@ -170,7 +171,7 @@ def eval_data(dataset):
         loss, acc = sess.run([loss_op, accuracy_op], feed_dict={x: batch_x, y: batch_y})
         total_acc += (acc * batch_x.shape[0])
         total_loss += (loss * batch_x.shape[0])
-    return total_loss/num_examples, total_acc/num_examples
+    return total_loss / num_examples, total_acc / num_examples
 
 
 if __name__ == '__main__':
@@ -189,7 +190,7 @@ if __name__ == '__main__':
                 loss = sess.run(train_op, feed_dict={x: batch_x, y: batch_y})
 
             val_loss, val_acc = eval_data(mnist.validation)
-            print("EPOCH {} ...".format(i+1))
+            print("EPOCH {} ...".format(i + 1))
             print("Validation loss = {}".format(val_loss))
             print("Validation accuracy = {}".format(val_acc))
 
