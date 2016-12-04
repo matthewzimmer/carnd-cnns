@@ -99,7 +99,7 @@ def maxpool2d(x, k=2):
 def conv_net(x, weights, biases):
     # Layer 1 - 28*28*1 to 14*14*32
     conv1 = conv2d(x, weights['layer_1'], biases['layer_1'])
-    conv1 = maxpool2d(conv1)
+    conv1 = maxpool2d(conv1, k=2) # to go from 28x28 to 14x14
 
     # Layer 2 - 14*14*32 to 7*7*64
     conv2 = conv2d(conv1, weights['layer_2'], biases['layer_2'])
